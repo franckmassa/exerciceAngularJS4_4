@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  <title>Exercice4</title>
+</head>
+<body>
+  <!--Filtrage des voitures qui ne sont pas vertes avec le"!" placé devant la propriété de l'objet-->
+  <div ng-app="monApp" ng-controller="carsCtrl" >
+        <ul ng-repeat="car in cars | filter: '!verte'">
+          <li>
+            {{car.marque}}: {{car.couleur}}
+          </li>
+        </ul>
+  </div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script src="voiture.json"></script>
+  <script>
+  //Récupération des données json avec l'url $http
+  var app = angular.module('monApp', []);
+  app.controller('carsCtrl', function($scope, $http) {
+    $http.get('voiture.json').then(function (response){
+    $scope.cars = response.data;
+    });
+  });
+  </script>
+</body>
+</html>
