@@ -7,7 +7,7 @@
 <body>
   <!--Filtrage des voitures qui ne sont pas vertes avec le"!" placé devant la propriété de l'objet-->
   <div ng-app="monApp" ng-controller="carsCtrl" >
-        <ul ng-repeat="car in cars | filter: '!verte'">
+        <ul ng-repeat="car in cars | filter:{couleur:'!verte'}">
           <li>
             {{car.marque}}: {{car.couleur}}
           </li>
@@ -24,5 +24,41 @@
     });
   });
   </script>
+</body>
+</html>
+
+<!--Solution avec un tableau-->
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Exercice 4</title>
+</head>
+<body ng-app="testApp">
+  <div ng-controller="carsCtrl">
+    <table cellspacing="2px" cellpadding="2px;" rules="all" style="border:solid 1px black;">
+      <thead>
+        <th>Modèle</th>
+        <th>Couleur</th>
+      </thead>
+      <tr ng-repeat="car in cars | filter : {couleur : '!verte'}">
+        <td>
+          {{car.marque}}
+        </td>
+        <td>
+          {{car.couleur}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+  <script>
+  var app = angular.module('testApp', []);
+  app.controller('carsCtrl', function($scope , $http){
+    $http.get('voiture.json').then(function(response){
+      $scope.cars = response.data;
+    });
+  });
+</script>
 </body>
 </html>
